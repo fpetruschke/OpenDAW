@@ -214,6 +214,12 @@ $('body').bind('stop-event', function (e) {
 $('body').bind('stepBackward-event', function (e) {
     schedStepBack(ac.currentTime);
 });
+$('body').bind('backward-event', function (e) {
+    schedBackward(ac.currentTime);
+});
+$('body').bind('forward-event', function (e) {
+    schedForward(ac.currentTime);
+});
 $('body').bind('mute-event', function (e, trackNumber) {
     muteTrack(trackNumber);
 });
@@ -575,6 +581,12 @@ $(document).ready(function () {
     $("#step-backward").click(function () {
         $('body').trigger('stepBackward-event');
     });
+    $("#backward").click(function () {
+        $('body').trigger('backward-event');
+    });
+    $("#forward").click(function () {
+        $('body').trigger('forward-event');
+    });
 
     function zoomedInEvent() {
         $('body').trigger('zoomIn-event');
@@ -616,8 +628,12 @@ $(document).ready(function () {
     };
 
     // Button click listener
-    $("#zoomIn").on('click', zoomedInEvent());
-    $("#zoomOut").on('click', zoomedOutEvent());
+    $("#zoomIn").on('click', function() {
+        zoomedInEvent();
+    });
+    $("#zoomOut").on('click', function() {
+        zoomedOutEvent();
+    });
     // CTR + MOUSEWHEEL listening
     $(window).bind('mousewheel DOMMouseScroll', function(event) {
         // CTRL pressed ?
@@ -628,7 +644,7 @@ $(document).ready(function () {
             if(event.originalEvent.detail > 0 || event.originalEvent.wheelDelta < 0) {
                 // CTRL + MouseWheel DOWN
                 zoomedOutEvent();
-            }else {
+            } else {
                 // CTRL + MouseWheel UP
                 zoomedInEvent();
             }
@@ -639,18 +655,32 @@ $(document).ready(function () {
     });
 
     /* keyboard key bindings */
-    $(window).bind('keydown', function(event) {
-
-        // SPACE
-        if (event.keyCode == 32) {
-            event.preventDefault();
+    $(document).on('keydown', function ( e ) {
+        // CTRL + C
+        /*if ((e.metaKey || e.ctrlKey) && ( String.fromCharCode(e.which).toLowerCase() === 'c') ) {
+             alert( "You pressed CTRL + C" );
+        }*/
+        // CTRL + SPACE
+        if ((e.metaKey || e.ctrlKey) && (e.keyCode == 32) ) {
             $('body').trigger('playPause-event');
+            return false;
         }
+        // CTRL + LEFT
+        if ((e.metaKey || e.ctrlKey) && (e.keyCode == 37) ) {
+            $('body').trigger('backward-event');
+            return false;
+        }
+        // CTRL + RIGHT
+        if ((e.metaKey || e.ctrlKey) && (e.keyCode == 39) ) {
+            $('body').trigger('forward-event');
+            return false;
+        }
+
     });
 
     $("#trackEffectsClose").click(function () {
         $("#trackEffects").css("display", "none");
-        $("#masterControl").css("display", "none");
+        //$("#masterControl").css("display", "none");
     });
 
 
@@ -665,7 +695,10 @@ $(document).ready(function () {
         }
     });
 
-    $("#addTrackButton").click(function () {
+    $("#addTrackButton").click(function (event) {
+
+        event.preventDefault();
+
         var newTrackNumber = globalNumberOfTracks + 1;
         globalNumberOfTracks++;
         if (globalNumberOfTracks > 4) {
@@ -770,7 +803,7 @@ function createTrack(trackNumber) {
         Object.keys(effects[activeTrack - 1]);
         $("#trackEffectsHeader").html("Track " + printTrackNumber);
         $("#trackEffects").css("display", "block");
-        $("#masterControl").css("display", "block");
+        //$("#masterControl").css("display", "block");
     });
     $("#mute" + trackNumber).click(function () {
         $(this).button('toggle');
@@ -878,6 +911,7 @@ function createTrack(trackNumber) {
     });
     $("#delete" + trackNumber).click(function () {
         alert("To be implemented.");
+        $('#selectTrack'+trackNumber).remove();
     });
     $("#track" + trackNumber + "title").storage({
         storageKey: 'track' + trackNumber

@@ -15,6 +15,12 @@ gradient.addColorStop(0.75,'#ff0000');
 gradient.addColorStop(0.25,'#ffff00');
 gradient.addColorStop(0,'#ffffff');
 
+/*
+ * gradient.addColorStop(1,'#14a200');
+ gradient.addColorStop(0.75,'#ffff00');
+ gradient.addColorStop(0.25,'#ff0000');
+ gradient.addColorStop(0,'#ffffff');
+ * */
 
 setupAudioNodes();
 

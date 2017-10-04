@@ -1,0 +1,9 @@
+.jtab {
+    height:218px;
+}
+.jtab.chordonly {
+    height:118px;
+}
+.jtab.tabonly {
+    height:100px;
+}
