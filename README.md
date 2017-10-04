@@ -1,10 +1,13 @@
-OpenDAW
-=======
+webDAW
+======
 
-<p>
-OpenDAW is an open source online digital audio workstation (DAW) based on the 
-<a href = https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/specification.html target = "blank">Web Audio API </a>. Try OpenDAW <a href = http://opendaw.azurewebsites.net target = "blank"> here </a>.
-</p>
+This is a fork of [pverrecchia/OpenDAW](https://github.com/pverrecchia/OpenDAW)
+
+> TBC
+
+----------
+
+README from OpenDAW:
 
 ![ScreenShot](https://raw.github.com/pvererecchia/OpenDAW/master/img/opendaw.PNG)
 <br>
