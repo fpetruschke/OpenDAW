@@ -10,123 +10,156 @@
     <title>webDAW</title>
 
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css"/>
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!--<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">-->
     <!--<link href="css/bootstrap-responsive.css" rel="stylesheet">-->
 
     <!-- Bootstrap -->
-    <!--<link href="css/bootstrap.cyborg.min.css" rel="stylesheet">-->
+    <link href="css/bootstrap.cyborg.min.css" rel="stylesheet">
     <!-- FontAwesome -->
     <link href="css/font-awesome.min.css" rel="stylesheet">
 
     <!-- custom styles -->
     <link href="css/customStyle.css" rel="stylesheet">
+
+    <!-- sidepanel -->
+    <link href="css/sidepanel.css" rel="stylesheet">
 </head>
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container-fluid">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="brand" href="#">webDAW</a>
-            <div class="nav-collapse collapse">
-                <ul class="nav">
-                    <li><a href="#">Export</a></li>
-                    <li><a href="#">Save</a></li>
+            <a class="navbar-brand" href="#">webDAW</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#">Export</a></li>
+                <li><a href="#">Save</a></li>
 
-                    <li><a id="step-backward" href="#"><i class="fa fa-fast-backward" style="color: white;"></i></a></li>
-                    <li><a id="playPause" href="#"><i class="fa fa-play" style="color: white;"></i></a></li>
-                    <li><a id="stop" href="#"><i class="fa fa-stop" style="color: white;"></i></a></li>
+                <li><a id="step-backward" href="#"><i class="fa fa-fast-backward" style="color: white;"></i></a></li>
+                <li><a id="playPause" href="#"><i class="fa fa-play" style="color: white;"></i></a></li>
+                <li><a id="stop" href="#"><i class="fa fa-stop" style="color: white;"></i></a></li>
 
-                </ul>
-            </div><!--/.nav-collapse -->
+                <li>
+                    <a id="addTrackButton"><i class="fa fa-plus" style="color: #4CAF50;"></i></a>
+                </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<!-- sidepanel -->
+<!-- inspired by https://codepen.io/nirmalkc/pen/JKjmVg?editors=1000 -->
+<nav class="navbar-primary collapsed">
+    <a href="#" class="btn-expand-collapse"><span class="fa fa-arrow-circle-right"></span></a>
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                        <span class="fa fa-list-alt"></span><span class="nav-label"> Library</span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse1" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="active" id="library">
+                        <ul id="libraryList" class=""></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                        <span class="fa fa-upload"></span><span class="nav-label"> Upload</span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="" id="upload">
+                        <ul id="uploadList" class="nav nav-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                        <span class="fa fa-bolt"></span><span class="nav-label"> Effects</span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <div class="" id="effects">
+                        <ul id="effectList" class="nav nav-list">
+                            <li class="effectDrag"><a href="#">Reverb</a></li>
+                            <li class="effectDrag"><a href="#">Filter</a></li>
+                            <li class="effectDrag"><a href="#">Tremolo</a></li>
+                            <li class="effectDrag"><a href="#">Compressor</a></li>
+                            <li class="effectDrag"><a href="#">Delay</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<div class="container-fluid">
-    <div id="holder">
-        <div class="row-fluid" id="trackBed">
-            <div class="span3">
-                <div class="sidebar tabbable tabs-below well">
-                    <div class="tab-content tabContents">
-                        <div class="tab-pane sidebar-nav sidebarTab active" id="library">
-                            <ul id="libraryList" class="nav nav-list">
-                                <li class="nav-header">Library</li>
-                            </ul>
-                        </div>
-                        <div class="tab-pane sidebarTab" id="upload">
-                            <ul id="uploadList" class="nav nav-list">
-                                <li class="nav-header">Upload</li>
-                            </ul>
-                        </div>
-                        <div class="tab-pane sidebarTab" id="effects">
-                            <ul id="effectList" class="nav nav-list">
-                                <li class="nav-header">Effects</li>
-                                <li class="effectDrag"><a href="#">Reverb</a></li>
-                                <li class="effectDrag"><a href="#">Filter</a></li>
-                                <li class="effectDrag"><a href="#">Tremolo</a></li>
-                                <li class="effectDrag"><a href="#">Compressor</a></li>
-                                <li class="effectDrag"><a href="#">Delay</a></li>
+</nav>
 
-                            </ul>
-                        </div>
-                    </div>
-                    <ul class="nav nav-pills sidebarTabs">
-                        <li class="active"><a href="#library" data-toggle="tab">Library</a></li>
-                        <li><a href="#upload" data-toggle="tab">Upload</a></li>
-                        <li><a href="#effects" data-toggle="tab">Effects</a></li>
-                    </ul>
-                </div>
-
-            </div>
-            <div id="tracks" class="span9 scrollable">
-                <div class="row-fluid">
-                    <div class="span1" style="position:relative;">
-                        <div id="clock" class="clock"></div>
-                    </div>
-                    <div class="span1">
-                        <div id="zoom">
-                            <div class="btn-toolbar">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-mini" id="zoomOut">
-                                        <i class="fa fa-search-minus"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-mini" id="zoomIn">
-                                        <i class="fa fa-search-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="span10 timeline">
-                        <canvas id="timeline" width="500" height="20" style="padding-top:10px;"></canvas>
+<div class="main-content">
+    <div class="row">
+        <div class="col-md-1" style="position:relative;">
+            <div id="clock" class="clock"></div>
+        </div>
+        <div class="col-md-1">
+            <div id="zoom">
+                <div class="btn-toolbar">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-xs" id="zoomOut">
+                            <i class="fa fa-search-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-xs" id="zoomIn">
+                            <i class="fa fa-search-plus"></i>
+                        </button>
                     </div>
                 </div>
-            </div>
-            <div id="newTrackButton" class="span9 addTrack">
-                <a id="addTrackButton" href="#"><p class="text-center"><i class="fa fa-plus-circle"></i></p></a>
             </div>
         </div>
-        <div class="row-fluid">
-            <div class="span11 well" id="trackEffects">
-                <button id="trackEffectsClose" class="close">&times;</button>
-                <div>
-                    <h4 id="trackEffectsHeader"></h4>
-                </div>
-                <div class="effectsBed">
-                    <ul id="effectSortable">
-                        <li class="hidden effect" id="Reverb">
-                            <h6 style="margin:0px 0;">Reverb</h6>
-                            <p class="left-knob-label">Reverb Type</p>
+        <div class="col-md-10 timeline">
+            <canvas id="timeline" width="500" height="20" style="padding-top:10px;"></canvas>
+        </div>
+    </div>
+    <!-- tracks -->
+    <div id="tracks" class="col-md-12 scrollable"></div>
+    <!-- track options only appear if track is clicked -->
+    <div class="row">
+        <div class="col-md-11 well" id="trackEffects">
+            <button id="trackEffectsClose" class="close">&times;</button>
+            <div>
+                <h4 id="trackEffectsHeader"></h4>
+            </div>
+            <div class="effectsBed">
+                <ul id="effectSortable">
+                    <li class="hidden effect" id="Reverb">
+                        <h6 style="margin:0px 0;">Reverb</h6>
+                        <p class="left-knob-label">Reverb Type</p>
 
-                            <p class="right-knob-label">Wet/Dry</p>
-                            <span class="knobs">
+                        <p class="right-knob-label">Wet/Dry</p>
+                        <span class="knobs">
                                 <!--<form>
                                 <select id="reverbList">
                                     <option>reverb1</option>
-                                    <option>reverb2</option>  
+                                    <option>reverb2</option>
                                 </select>
                             </form> -->
                                 <input id="reverbIrSelectKnob" data-fgColor="#222222" data-linecap=round
@@ -134,17 +167,17 @@
                                        class="dial" value="0">
                                 <input id="reverbWetDryKnob" data-fgColor="#bd362f" data-linecap=round
                                        data-angleOffset=-125 data-angleArc=250 data-width="50" class="dial">
-                                
-                                
+
+
                             </span>
-                            <button class="effectClose">&times;</button>
-                        </li>
-                        <li class="hidden effect" id="Filter">
-                            <h6 style="margin:0px 0;">Filter</h6>
-                            <p class="left-knob-label">Cutoff</p>
-                            <p class="middle-knob-label">Q</p>
-                            <p class="right-knob-label">Type</p>
-                            <span class="knobs">
+                        <button class="effectClose">&times;</button>
+                    </li>
+                    <li class="hidden effect" id="Filter">
+                        <h6 style="margin:0px 0;">Filter</h6>
+                        <p class="left-knob-label">Cutoff</p>
+                        <p class="middle-knob-label">Q</p>
+                        <p class="right-knob-label">Type</p>
+                        <span class="knobs">
                                 <input id="filterCutoffKnob" data-fgColor="#bd362f" data-linecap=round
                                        data-angleOffset=-125 data-angleArc=250 data-width="50" data-min="0"
                                        data-max="100" class="dial" value="30">
@@ -155,14 +188,14 @@
                                        data-angleOffset=-125 data-angleArc=250 data-width="50" data-min="0" data-max="2"
                                        class="dial" value="0">
                             </span>
-                            <button class="effectClose">&times;</button>
-                        </li>
-                        <li class="hidden effect" id="Delay">
-                            <h6 style="margin:0px 0;">Delay</h6>
-                            <p class="left-knob-label">Delay Time</p>
-                            <p class="middle-knob-label">Feedback</p>
-                            <p class="right-knob-label">Wet/Dry</p>
-                            <span class="knobs">
+                        <button class="effectClose">&times;</button>
+                    </li>
+                    <li class="hidden effect" id="Delay">
+                        <h6 style="margin:0px 0;">Delay</h6>
+                        <p class="left-knob-label">Delay Time</p>
+                        <p class="middle-knob-label">Feedback</p>
+                        <p class="right-knob-label">Wet/Dry</p>
+                        <span class="knobs">
                                 <input id="delayTimeKnob" data-fgColor="#bd362f" data-linecap=round
                                        data-angleOffset=-125 data-angleArc=250 data-width="50" data-min="0" data-max="8"
                                        class="dial" value="1">
@@ -173,14 +206,14 @@
                                        data-angleOffset=-125 data-angleArc=250 data-width="50" data-min="0"
                                        data-max="100" class="dial" value="0">
                             </span>
-                            <button class="effectClose">&times;</button>
-                        </li>
-                        <li class="hidden effect" id="Compressor">
-                            <h6 style="margin:0px 0;">Compressor</h6>
-                            <p class="left-knob-label">Threshold</p>
-                            <p class="middle-knob-label">Ratio</p>
-                            <p class="right-knob-label">Attack</p>
-                            <span class="knobs">
+                        <button class="effectClose">&times;</button>
+                    </li>
+                    <li class="hidden effect" id="Compressor">
+                        <h6 style="margin:0px 0;">Compressor</h6>
+                        <p class="left-knob-label">Threshold</p>
+                        <p class="middle-knob-label">Ratio</p>
+                        <p class="right-knob-label">Attack</p>
+                        <span class="knobs">
                                 <input id="compressorThresholdKnob" data-fgColor="#08c" data-linecap=round
                                        data-angleOffset=-125 data-angleArc=250 data-width="50" data-min="-100"
                                        data-max="-1" class="dial" value="-24">
@@ -191,14 +224,14 @@
                                        data-angleOffset=-125 data-angleArc=250 data-width="50" data-min="0"
                                        data-max="1000" class="dial" value="3">
                             </span>
-                            <button class="effectClose">&times;</button>
-                        </li>
-                        <li class="hidden effect" id="Tremolo">
-                            <h6 style="margin:0px 0;">Tremolo</h6>
-                            <p class="left-knob-label">-</p>
-                            <p class="middle-knob-label">Rate</p>
-                            <p class="right-knob-label">Depth</p>
-                            <span class="knobs">
+                        <button class="effectClose">&times;</button>
+                    </li>
+                    <li class="hidden effect" id="Tremolo">
+                        <h6 style="margin:0px 0;">Tremolo</h6>
+                        <p class="left-knob-label">-</p>
+                        <p class="middle-knob-label">Rate</p>
+                        <p class="right-knob-label">Depth</p>
+                        <span class="knobs">
                                 <input id="tremoloNothingKnob" data-fgColor="#08c" data-linecap=round
                                        data-angleOffset=-125 data-angleArc=250 data-width="50" data-min="-100"
                                        data-max="-1" class="dial" value="0">
@@ -209,18 +242,18 @@
                                        data-angleOffset=-125 data-angleArc=250 data-width="50" data-min="0"
                                        data-max="100" class="dial" value="10">
                             </span>
-                            <button class="effectClose">&times;</button>
-                        </li>
-                        <ul>
-                </div>
+                        <button class="effectClose">&times;</button>
+                    </li>
+                    <ul>
             </div>
-            <div id="masterControl" class="span1 well">
-                <canvas id="VUmeterCanvas" width="30" height="80" style="display: block;"></canvas>
-                <div id="masterVolume"></div>
-            </div>
+        </div>
+        <div id="masterControl" class="col-md-1 well">
+            <canvas id="VUmeterCanvas" width="30" height="80" style="display: block;"></canvas>
+            <div id="masterVolume"></div>
         </div>
     </div>
 </div>
+
 <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
@@ -235,5 +268,12 @@
 <script src="src/effects.js"></script>
 <script src="src/main.js"></script>
 <script src="src/vumeter.js"></script>
+
+<script>
+    $('.btn-expand-collapse').click(function(e) {
+        $('.navbar-primary').toggleClass('collapsed');
+        $(this).find('span.fa').toggleClass('fa-arrow-circle-right fa-arrow-circle-left');
+    });
+</script>
 </body>
 </html>

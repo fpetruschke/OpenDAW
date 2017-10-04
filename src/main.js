@@ -616,8 +616,8 @@ $(document).ready(function () {
     };
 
     // Button click listener
-    $("#zoomIn").click(zoomedInEvent());
-    $("#zoomOut").click(zoomedOutEvent());
+    $("#zoomIn").on('click', zoomedInEvent());
+    $("#zoomOut").on('click', zoomedOutEvent());
     // CTR + MOUSEWHEEL listening
     $(window).bind('mousewheel DOMMouseScroll', function(event) {
         // CTRL pressed ?
@@ -635,6 +635,16 @@ $(document).ready(function () {
 
             //prevent page fom scrolling
             return false;
+        }
+    });
+
+    /* keyboard key bindings */
+    $(window).bind('keydown', function(event) {
+
+        // SPACE
+        if (event.keyCode == 32) {
+            event.preventDefault();
+            $('body').trigger('playPause-event');
         }
     });
 
@@ -683,30 +693,30 @@ $(document).ready(function () {
 
 function createTrack(trackNumber) {
     $("#tracks").append('' +
-        '<div class="row-fluid" id="selectTrack' + trackNumber + '">' +
-        '   <div class="span2 trackBox" style="height: 84px;">' +
+        '<div class="row" id="selectTrack' + trackNumber + '">' +
+        '   <div class="col-md-2 trackBox" style="height: 84px;">' +
         '       <p style="margin: 0 0 0 0;" id="track'+ trackNumber + 'title">Track' + trackNumber + '</p>' +
         '       <div style="margin: 5px 0 5px 0;" id="volumeSlider' + trackNumber + '"></div>' +
         '       <div class="btn-toolbar" style="margin-top: 0px;">' +
         '           <div class="btn-group">' +
-        '               <button type="button" class="btn btn-mini" id = "solo' + trackNumber + '">' +
+        '               <button type="button" class="btn btn-xs" id = "solo' + trackNumber + '">' +
         '                   <i>S</i>' +
         '               </button>' +
-        '               <button type="button" class="btn btn-mini" id = "mute' + trackNumber + '">' +
+        '               <button type="button" class="btn btn-xs" id = "mute' + trackNumber + '">' +
         '                   <i>M</i>' +
         '               </button>' +
         '           </div>' +
         '           <div class="btn-group">' +
-        '               <button type="button" class="btn btn-mini" data-toggle="button" id = "record' + trackNumber + '">' +
+        '               <button type="button" class="btn btn-xs" data-toggle="button" id = "record' + trackNumber + '">' +
         '                   <i class="fa fa-circle-o" style="color: red;"></i>' +
         '               </button>' +
-        '               <button type="button" class="btn btn-mini" data-toggle="button" id = "delete' + trackNumber + '">' +
+        '               <button type="button" class="btn btn-xs" data-toggle="button" id = "delete' + trackNumber + '">' +
         '                   <i class="fa fa-trash"></i>' +
         '               </button>' +
         '           </div>' +
         '       </div>' +
         '   </div>' +
-        '   <div id="track' + trackNumber + '" class="span10 track"></div>' +
+        '   <div id="track' + trackNumber + '" class="col-md-10 track"></div>' +
         '</div>' +
     '');
     if (effects[trackNumber - 1] == null) {
